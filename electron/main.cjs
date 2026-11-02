@@ -4,7 +4,7 @@ const path = require("path");
 const os = require("os");
 const ACTIONS = require("./actions.cjs");
 
-const PANEL_URL = "https://project--be489c59-f72e-4f48-88f2-36a79124add9.lovable.app/panel";
+const PANEL_URL = "https://game-ready-system-suite.lovable.app/panel";
 
 function ps(script, timeout = 15 * 60 * 1000) {
   return new Promise((resolve) => {
