@@ -75,5 +75,19 @@ function createWindow() {
   win.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
 }
 
-app.whenReady().then(createWindow);
+// Relaunch elevated so registry/service tweaks work.
+function ensureAdmin() {
+  return new Promise((resolve) => {
+    execFile("net", ["session"], { windowsHide: true }, (err) => {
+      if (!err) return resolve(true);
+      execFile("powershell.exe", ["-NoProfile", "-Command", `Start-Process -FilePath '${process.execPath}' -Verb RunAs`], { windowsHide: true }, () => {});
+      resolve(false);
+    });
+  });
+}
+
+app.whenReady().then(async () => {
+  if (process.platform === "win32" && !(await ensureAdmin())) return app.quit();
+  createWindow();
+});
 app.on("window-all-closed", () => app.quit());
