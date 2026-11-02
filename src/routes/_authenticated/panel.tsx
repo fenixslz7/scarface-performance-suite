@@ -13,6 +13,7 @@ import { Logo } from "@/components/scarface/Logo";
 import { Ring } from "@/components/scarface/Ring";
 import { AdminUsers } from "@/components/scarface/AdminUsers";
 import { cn } from "@/lib/utils";
+import appZip from "@/assets/ScarfaceOptimizer-win32-x64.zip.asset.json";
 
 export const Route = createFileRoute("/_authenticated/panel")({
   head: () => ({
@@ -147,7 +148,7 @@ function Panel() {
               Você está no navegador. Para otimizar o PC de verdade, use o <b>app desktop para Windows</b>.
             </p>
             <Button variant="hero" size="sm" asChild>
-              <a href="/downloads/ScarfaceOptimizer-win32-x64.zip"><Download />Baixar</a>
+              <a href={appZip.url} download="ScarfaceOptimizer-win32-x64.zip"><Download />Baixar</a>
             </Button>
           </div>
         )}
