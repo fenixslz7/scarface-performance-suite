@@ -4,7 +4,7 @@ const path = require("path");
 const os = require("os");
 const ACTIONS = require("./actions.cjs");
 
-const PANEL_URL = "https://project--be489c59-f72e-4f48-88f2-36a79124add9.lovable.app/panel";
+const PANEL_URL = "https://game-ready-system-suite.lovable.app/panel";
 
 function ps(script, timeout = 15 * 60 * 1000) {
   return new Promise((resolve) => {
@@ -75,5 +75,19 @@ function createWindow() {
   win.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
 }
 
-app.whenReady().then(createWindow);
+// Relaunch elevated so registry/service tweaks work.
+function ensureAdmin() {
+  return new Promise((resolve) => {
+    execFile("net", ["session"], { windowsHide: true }, (err) => {
+      if (!err) return resolve(true);
+      execFile("powershell.exe", ["-NoProfile", "-Command", `Start-Process -FilePath '${process.execPath}' -Verb RunAs`], { windowsHide: true }, () => {});
+      resolve(false);
+    });
+  });
+}
+
+app.whenReady().then(async () => {
+  if (process.platform === "win32" && !(await ensureAdmin())) return app.quit();
+  createWindow();
+});
 app.on("window-all-closed", () => app.quit());
