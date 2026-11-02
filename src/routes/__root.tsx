@@ -80,9 +80,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "SCARFACE OPTIMIZER" },
+      { title: "ANONYMOS PERFORMANCE" },
       { name: "description", content: "Painel de otimização de desempenho para Windows e jogos." },
-      { property: "og:title", content: "SCARFACE OPTIMIZER" },
+      { property: "og:title", content: "ANONYMOS PERFORMANCE" },
       { property: "og:description", content: "Painel de otimização de desempenho para Windows e jogos." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
