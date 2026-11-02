@@ -65,7 +65,7 @@ ipcMain.handle("scarface:stats", async () => {
 function createWindow() {
   const win = new BrowserWindow({
     width: 1280, height: 820, minWidth: 1100, minHeight: 700,
-    backgroundColor: "#1a0f0f", title: "SCARFACE OPTIMIZER", autoHideMenuBar: true,
+    backgroundColor: "#1a0f0f", title: "ANONYMOS PERFORMANCE", autoHideMenuBar: true,
     webPreferences: { preload: path.join(__dirname, "preload.cjs"), contextIsolation: true, nodeIntegration: false, sandbox: true },
   });
   win.loadURL(PANEL_URL);
