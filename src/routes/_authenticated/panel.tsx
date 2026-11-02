@@ -55,7 +55,7 @@ function Panel() {
     setLogs((l) => [{ time: new Date().toLocaleTimeString("pt-BR"), text, ok }, ...l].slice(0, 200));
 
   async function run(a: Pick<Action, "id" | "title">) {
-    if (!window.scarface) return toast.error("Abra o app desktop SCARFACE OPTIMIZER para aplicar.");
+    if (!window.scarface) { toast.error("Abra o app desktop SCARFACE OPTIMIZER para aplicar."); return false; }
     setRunning(a.id);
     const r = await window.scarface.run(a.id);
     setRunning(null);
@@ -66,10 +66,10 @@ function Panel() {
   }
 
   async function runBoost() {
-    if (!window.scarface) return toast.error("Abra o app desktop SCARFACE OPTIMIZER para aplicar.");
+    if (!window.scarface) { toast.error("Abra o app desktop SCARFACE OPTIMIZER para aplicar."); return; }
     setRunning("boost");
-    for (let i = 0; i < BOOST_IDS.length; i++) {
-      const r = await window.scarface.run(BOOST_IDS[i]);
+    for (const [i, id] of BOOST_IDS.entries()) {
+      const r = await window.scarface.run(id);
       log(`Boost: ${r.output.trim().split("\n").slice(-1)[0]}`, r.ok);
       setBoost(Math.round(((i + 1) / BOOST_IDS.length) * 100));
     }
@@ -220,7 +220,7 @@ function Panel() {
   );
 }
 
-function Spec({ tag, value }: { tag: string; value?: string | null }) {
+function Spec({ tag, value }: { tag: string; value?: string | null | undefined }) {
   return (
     <div className="flex items-center gap-3 rounded-lg border bg-card px-4 py-3">
       <span className="rounded-full border border-primary/60 px-3 text-xs font-bold text-primary">{tag}</span>
